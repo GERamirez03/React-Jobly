@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import CompanyList from "./CompanyList";
 import CompanyDetail from "./CompanyDetail";
-import JobsList from "./JobsList";
+import JobsList from "./JobList";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";

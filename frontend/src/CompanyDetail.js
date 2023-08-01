@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText, ListGroup } from "reactstrap";
+import JobCard from "./JobCard";
+import JoblyApi from "./api";
 
 /**
- * A generic Item component which populates information of a specific item
- * by first extracting the item's id from the URL parameters and comparing
- * it to the items array provided.
+ * A component that renders details about a particular company, which is
+ * specified by the handle parameter.
  * 
- * If no id match is found in the items array, redirects user to the 
- * corresponding Menu page specified in the cantFind argument.
+ * The handle parameter is compared against the array of companies in
+ * memory to determine whether a user has attempted to access a valid 
+ * company details page.
+ * 
+ * If no company match is found in the array, this component redirects
+ * the user to the list of all companies.
  */
 
 function CompanyDetail({ companies }) {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [company, setCompany] = useState({});
+
   const { handle } = useParams();
 
   /**
@@ -21,10 +30,31 @@ function CompanyDetail({ companies }) {
    * redirect them to the companies list page.
    */
 
-  let company = companies.find(candidate => candidate.handle === handle);
-  if (!company) return <Redirect to="/companies" />; 
+  let targetCompany = companies.find(candidate => candidate.handle === handle);
+  if (!targetCompany) return <Redirect to="/companies" />;
 
-  // name, description, jobs (job cards!)
+  /**
+   * If the company exists, fetch all company data (including jobs)
+   * from the backend using the JoblyApi helper class.
+   * 
+   * Display a loading message while the data is being fetched.
+   * 
+   * Once complete, render the company data.
+   */
+
+  useEffect(() => {
+    async function getCompanyData(handle) {
+      let company = await JoblyApi.getCompany(handle);
+      setCompany(company);
+      setIsLoading(false);
+    }
+    getCompanyData(handle);
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading &hellip;</p>;
+  }
+
   const { name, description, logoUrl, jobs } = company;
 
   return (
@@ -35,10 +65,7 @@ function CompanyDetail({ companies }) {
           <img src={logoUrl} alt={name}/>
           <CardText className="font-italic">{ description }</CardText>
           <ListGroup>
-            Jobs coming soon...
-            {/**
-             * Map the company's "jobs" to jobCards...
-             */}
+            {jobs.map(job => <JobCard job={job} />)}
           </ListGroup>
         </CardBody>
       </Card>

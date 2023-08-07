@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import UserContext from "./userContext";
 
 /**
- * A controlled form component which renders a form, handles changes,
- * and handles submission using the addItem function passed down from
- * the App component. UPDATE DOCS
+ * A controlled form component which renders a signup form, handles changes,
+ * and handles submission to register new Jobly users using the signup function 
+ * accessed through the UserContext.
  */
 
-function SignupForm({ addItem }) {
+function SignupForm() {
+
+    const { signup } = useContext(UserContext);
 
     const INITIAL_STATE = {
         username: "",
@@ -22,7 +25,7 @@ function SignupForm({ addItem }) {
 
     const handleSubmit = evt => {
         evt.preventDefault();
-        addItem(formData); // change addItem to handleUser or similar!
+        signup(formData);
         setFormData(INITIAL_STATE);
         history.push("/");
     };

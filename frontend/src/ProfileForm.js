@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import UserContext from "./userContext";
 
 /**
- * A controlled form component which renders a form, handles changes,
- * and handles submission using the addItem function passed down from
- * the App component. UPDATE DOCS
+ * A controlled form component which renders a profile form, handles changes,
+ * and handles submission to update a user's Jobly profile information using
+ * the updateProfile function accessed through the UserContext.
+ * 
+ * Reads the currentUser's information through the UserContext to initially 
+ * populate the form.
  */
 
-// prop will likely be currentUser or similar
+function ProfileForm() {
 
-function ProfileForm({ addItem }) {
+    const { currentUser, updateProfile } = useContext(UserContext);
+    const { username, firstName, lastName, email } = currentUser;
 
-    const INITIAL_STATE = { // populate initial state with currentUser details
-        username: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-    };
+    // populate initial state with logged-in currentUser details
+    const INITIAL_STATE = { username, firstName, lastName, email };
+
     const [formData, setFormData] = useState(INITIAL_STATE);
     const history = useHistory();
 
     const handleSubmit = evt => {
         evt.preventDefault();
-        addItem(formData); // change addItem to updateUser or similar!
+        updateProfile(formData);
         setFormData(INITIAL_STATE);
         history.push("/");
     };
@@ -47,7 +49,7 @@ function ProfileForm({ addItem }) {
                 <CardText>
                     <form onSubmit={handleSubmit}>
                         <p>
-                        <label htmlFor="username">username:</label>
+                        <label htmlFor="username">Username:</label>
                         <input
                             id="username"
                             name="username"
@@ -58,7 +60,7 @@ function ProfileForm({ addItem }) {
                         </p>
                         
                         <p>
-                        <label htmlFor="firstName">firstName:</label>
+                        <label htmlFor="firstName">First Name:</label>
                         <input
                             id="firstName"
                             name="firstName"
@@ -67,7 +69,7 @@ function ProfileForm({ addItem }) {
                         />
                         </p>
                         <p>
-                        <label htmlFor="lastName">lastName:</label>
+                        <label htmlFor="lastName">Last Name:</label>
                         <input
                             id="lastName"
                             name="lastName"
@@ -76,7 +78,7 @@ function ProfileForm({ addItem }) {
                         />
                         </p>
                         <p>
-                        <label htmlFor="email">email:</label>
+                        <label htmlFor="email">Email:</label>
                         <input
                             id="email"
                             name="email"

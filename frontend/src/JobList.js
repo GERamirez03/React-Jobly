@@ -4,8 +4,7 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  ListGroup,
-  ListGroupItem // pending use... either in JobsList or within JobCard component
+  ListGroup
 } from "reactstrap";
 
 import JobCard from "./JobCard";
@@ -13,10 +12,9 @@ import SearchForm from "./SearchForm";
 import JoblyApi from "./api";
 
 /**
- * A generic Menu component which populates a menu title and item list
- * based on the title string and items array passed to it.
+ * A component which renders a list of jobs with all available information about them.
  * 
- * Menu items are links to their Item details page.
+ * Also renders a SearchForm component to allow users to search for jobs by keyword.
  */
 
 function JobsList({ jobs }) {

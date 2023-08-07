@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-/** Search Form for companies or jobs. */
+/** 
+ * A controlled form component which renders a search form, handles changes,
+ * and handles submission to search for a specific term using the search
+ * function passed down from either JobList or CompanyList.
+ */
 
 function SearchForm({ search }) {
   const [term, setTerm] = useState("");
@@ -12,7 +16,7 @@ function SearchForm({ search }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     search(term);
-    // setTerm("");
+    // setTerm(""); Keep search term visible for user to reference their search!
   }
 
   return (

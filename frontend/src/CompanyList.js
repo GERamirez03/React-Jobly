@@ -12,13 +12,11 @@ import SearchForm from "./SearchForm";
 import JoblyApi from "./api";
 
 /**
- * TODO: Implement search form functionality for CompanyList with a CompanySearchForm
- * component to filter companies by name. Connect this to the backend with the JoblyAPI class.
+ * A component which lists all companies and simple information about them.
  * 
- * A component which lists all companies and simple information
- * about each company.
+ * Also renders a SearchForm component to allow users to search for companies by keyword.
  * 
- * Each CompanyCard contains a link to their respective CompanyDetail page.
+ * Each CompanyCard is a link to their respective CompanyDetail page.
  */
 
 function CompanyList({ companies }) {

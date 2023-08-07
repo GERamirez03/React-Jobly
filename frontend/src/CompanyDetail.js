@@ -5,14 +5,12 @@ import JobCard from "./JobCard";
 import JoblyApi from "./api";
 
 /**
- * A component that renders details about a particular company, which is
+ * A component that renders details about a particular company
  * specified by the handle parameter.
  * 
- * The handle parameter is compared against the array of companies in
- * memory to determine whether a user has attempted to access a valid 
- * company details page.
+ * This component also lists all jobs posted by that company.
  * 
- * If no company match is found in the array, this component redirects
+ * If the company does not exist, this component redirects
  * the user to the list of all companies.
  */
 
@@ -62,10 +60,10 @@ function CompanyDetail({ companies }) {
       <Card>
         <CardBody>
           <CardTitle className="font-weight-bold text-center">{ name }</CardTitle>
-          <img src={logoUrl} alt={name}/>
+          <img src={ logoUrl } alt={ name }/>
           <CardText className="font-italic">{ description }</CardText>
           <ListGroup>
-            {jobs.map(job => <JobCard job={job} />)}
+            {jobs.map(job => <JobCard job={ job } />)}
           </ListGroup>
         </CardBody>
       </Card>

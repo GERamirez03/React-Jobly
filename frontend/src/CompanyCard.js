@@ -7,9 +7,9 @@ import { ListGroupItem } from "reactstrap";
  * about a company into a small card for display within the
  * CompanyList parent component.
  * 
- * The specific company is passed down as a property for processing.
+ * The entire card is a link to that company's details page.
  * 
- * Returns a populated CompanyCard component.
+ * The specific company is passed down as a property for processing.
  */
 
 function CompanyCard({ company }) {
